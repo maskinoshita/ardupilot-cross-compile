@@ -1,0 +1,20 @@
+---
+- name: "checkout ardupilot {{item.key}} source"
+  git:
+    repo: 'https://github.com/ArduPilot/ardupilot.git'
+    dest: '/opt/build/ardupilot'
+    update: yes
+    recursive: yes
+    version: "{{item.value}}"
+- name: "set target board to navio2"
+  shell: "{{WAF_BIN}} configure --board=navio2"
+  vars:
+    WAF_BIN: '/opt/build/ardupilot/modules/waf/waf-light'
+  args:
+    chdir: '/opt/build/ardupilot'
+- name: "build {{item.key}}"
+  shell: "{{WAF_BIN}} {{item.key}}"
+  vars:
+    WAF_BIN: '/opt/build/ardupilot/modules/waf/waf-light'
+  args:
+    chdir: '/opt/build/ardupilot'

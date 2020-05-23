@@ -1,0 +1,5 @@
+copter: Copter-4.0.3
+heli: ArduCopter-stable-heli
+plane: ArduPlane-4.0.5
+rover: Rover-4.0.0
+sub: ArduSub-stable

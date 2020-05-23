@@ -1,0 +1,31 @@
+# build latest ardupilot for navio2
+# run this playbook on x64 and ansible,pip installed linux distribution
+---
+- hosts: all
+  become: yes
+  environment:
+    PATH: "/opt/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:{{ ansible_env.PATH }}"
+  tasks:
+  - name: "include vars of versions into versions"
+    include_vars:
+      file: versions.yml
+      name: versions
+  - name: "clone raspberry pi cross compile tools"
+    git:
+      repo: 'https://github.com/raspberrypi/tools.git'
+      dest: '/opt/tools'
+      depth: 1
+  - name: "install future"
+    pip: 
+      name: future
+  - name: "build binaries"
+    include_tasks: build.yml
+    with_items: "{{versions | dict2items}}"
+  - name: "create dist directory"
+    file: path=/opt/dist state=directory
+  - name: "archive binaries"
+    archive:
+      path: '/opt/build/ardupilot/build/navio2/bin/'
+      format: gz
+      dest: "/opt/dist/navio2.tar.gz"
+  
