@@ -8,7 +8,7 @@ sudo mkdir -p /opt/ardupilot/custom
 sudo cd /opt/ardupilot/custom
 
 # extract archive
-sudo wget https://github.com/maskinoshita/ardupilot-cross-compile/releases/download/20200525/navio2-ardupilot.zip
+sudo wget https://github.com/maskinoshita/navio2-ardupilot-cross-compile/releases/download/20200525/navio2-ardupilot.zip
 sudo unzip navio2-ardupilot.zip
 sudo rm navio2-ardupilot.zip
 sudo chmod +x ardu*
@@ -41,8 +41,8 @@ sudo systemctl restart ardupilot
 
 ```bash
 # use python and ansible installed linux machine
-git clone https://github.com/maskinoshita/ardupilot-cross-compile.git
-cd ardupilot-cross-compile
+git clone https://github.com/maskinoshita/navio2-ardupilot-cross-compile.git
+cd navio2-ardupilot-cross-compile
 ansible-playbook -i hosts.yml playbook.yml
 
 # bulit binaries
