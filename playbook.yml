@@ -26,6 +26,6 @@
   - name: "archive binaries"
     archive:
       path: '/opt/build/ardupilot/build/navio2/bin/'
-      format: gz
-      dest: "/opt/dist/navio2.tar.gz"
+      format: zip
+      dest: "/opt/dist/navio2-ardupilot.zip"
   
