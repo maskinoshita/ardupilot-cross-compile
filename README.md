@@ -30,6 +30,11 @@ sudo update-alternatives --set arducopter /opt/ardupilot/custom/arducopter
 #sudo update-alternatives --set arduplane /opt/ardupilot/custom/arduplane
 #sudo update-alternatives --set ardurover /opt/ardupilot/custom/ardurover
 #sudo update-alternatives --set ardusub /opt/ardupilot/custom/ardusub
+
+# restart ardupilot
+sudo systemctl restart ardupilot
+#sudo systemctl start ardupilot
+#sudo systemctl enable ardupilot
 ```
 
 ## Self build
