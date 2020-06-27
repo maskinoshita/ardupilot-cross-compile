@@ -3,8 +3,11 @@
 ---
 - hosts: all
   become: yes
+  vars:
+    base_dir: "/opt"
+    ardupilot_repo: "https://github.com/maskinoshita/ardupilot.git"
   environment:
-    PATH: "/opt/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:{{ ansible_env.PATH }}"
+    PATH: "{{base_dir}}/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:{{ ansible_env.PATH }}"
   tasks:
   - name: "include vars of versions into versions"
     include_vars:
@@ -13,19 +16,22 @@
   - name: "clone raspberry pi cross compile tools"
     git:
       repo: 'https://github.com/raspberrypi/tools.git'
-      dest: '/opt/tools'
+      dest: "{{base_dir}}/tools"
       depth: 1
   - name: "install future"
     pip: 
       name: future
   - name: "build binaries"
     include_tasks: build.yml
+    vars:
+      base: "{{base_dir}}"
+      repo: "{{ardupilot_repo}}"
     with_items: "{{versions | dict2items}}"
   - name: "create dist directory"
-    file: path=/opt/dist state=directory
+    file: path={{base_dir}}/dist state=directory
   - name: "archive binaries"
     archive:
-      path: '/opt/build/ardupilot/build/navio2/bin/'
+      path: "{{base_dir}}/build/ardupilot/build/navio2/bin/"
       format: zip
-      dest: "/opt/dist/navio2-ardupilot.zip"
+      dest: "{{base_dir}}/dist/navio2-ardupilot.zip"
   
